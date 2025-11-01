@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz - E-Learning Platform</title>
+<style>
+body { font-family:'Poppins', sans-serif; background:#f5f8ff; color:#333; padding:20px; }
+.container { max-width:700px; margin:50px auto; background:#fff; padding:30px; border-radius:15px; box-shadow:0 5px 20px rgba(0,0,0,0.1);}
+h1 { color:#2575fc; text-align:center; margin-bottom:30px; }
+.question { margin-bottom:20px; }
+.question h3 { margin-bottom:10px; }
+.options button { display:block; width:100%; margin:5px 0; padding:10px; border:none; border-radius:10px; background:#6a11cb; color:#fff; cursor:pointer; transition:0.3s; }
+.options button:hover { background:#2575fc; }
+#submitBtn { background:#2575fc; margin-top:20px; padding:12px 20px; border:none; border-radius:50px; color:#fff; cursor:pointer; transition:0.3s; }
+#submitBtn:hover { background:#1452b0; transform:scale(1.05); }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1 id="quizTitle">Quiz</h1>
+    <div id="quizContainer"></div>
+    <button id="submitBtn">Submit Quiz</button>
+</div>
+
+<script>
+// Example quiz questions per course
+let quizzes = {
+    "HTML & CSS Basics":[
+        { q:"What does HTML stand for?", options:["Hyper Text Markup Language","Home Tool Markup Language","Hyperlinks Text Mark Language"], answer:0 },
+        { q:"Which CSS property changes text color?", options:["color","font-style","text-decoration"], answer:0 }
+    ],
+    "JavaScript Fundamentals":[
+        { q:"Which symbol is used for comments in JS?", options:["//","#","/*"], answer:0 },
+        { q:"Which method converts a JSON string to object?", options:["JSON.parse()","JSON.stringify()","JSON.toObject()"], answer:0 }
+    ],
+    "React for Beginners":[
+        { q:"React is a ______ library?", options:["Front-end","Back-end","Database"], answer:0 },
+        { q:"JSX stands for?", options:["JavaScript XML","Java Syntax eXtended","JavaScript eXtension"], answer:0 }
+    ],
+    "Python Programming":[
+        { q:"Which keyword is used for function in Python?", options:["def","func","function"], answer:0 },
+        { q:"Which symbol is used for comments in Python?", options:["#","//","/*"], answer:0 }
+    ]
+};
+
+// Load current course
+let currentCourse = localStorage.getItem('currentQuizCourse');
+if(!currentCourse){
+    alert("No course selected. Redirecting to dashboard.");
+    window.location.href = "student_dashboard.html";
+}
+document.getElementById('quizTitle').innerText = `Quiz - ${currentCourse}`;
+
+let quizContainer = document.getElementById('quizContainer');
+let studentAnswers = [];
+
+// Display quiz questions
+quizzes[currentCourse].forEach((item,index)=>{
+    const div = document.createElement('div');
+    div.className = 'question';
+    div.innerHTML = `<h3>${index+1}. ${item.q}</h3>`;
+    const optionsDiv = document.createElement('div');
+    optionsDiv.className = 'options';
+    item.options.forEach((opt,optIndex)=>{
+        const btn = document.createElement('button');
+        btn.innerText = opt;
+        btn.addEventListener('click', ()=>{
+            studentAnswers[index] = optIndex;
+            Array.from(optionsDiv.children).forEach(b=>b.style.background="#6a11cb");
+            btn.style.background="#2575fc";
+        });
+        optionsDiv.appendChild(btn);
+    });
+    div.appendChild(optionsDiv);
+    quizContainer.appendChild(div);
+});
+
+// Submit Quiz
+document.getElementById('submitBtn').addEventListener('click', ()=>{
+    let score=0;
+    quizzes[currentCourse].forEach((q,i)=>{ if(studentAnswers[i]===q.answer) score++; });
+    alert(`You scored ${score} out of ${quizzes[currentCourse].length}`);
+
+    // Update enrollment progress
+    let enrollments = JSON.parse(localStorage.getItem('enrollments')) || [];
+    let student = JSON.parse(localStorage.getItem('currentStudent'));
+    enrollments = enrollments.map(e=>{
+        if(e.studentEmail===student.email && e.course===currentCourse){
+            e.progress = Math.max(e.progress, Math.round((score/quizzes[currentCourse].length)*100));
+        }
+        return e;
+    });
+    localStorage.setItem('enrollments', JSON.stringify(enrollments));
+    window.location.href = "student_dashboard.html";
+});
+</script>
+
+</body>
+</html>

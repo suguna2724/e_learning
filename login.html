@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - E-Learning Platform</title>
+<style>
+    /* Global Styles */
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+    body { background: #f5f8ff; color: #333; display:flex; justify-content:center; align-items:center; height:100vh; }
+    a { text-decoration:none; color:#2575fc; }
+    /* Login Container */
+    .login-container { background:#fff; padding:40px 30px; border-radius:15px; width:100%; max-width:400px; box-shadow:0 10px 30px rgba(0,0,0,0.1); text-align:center; }
+    .login-container h2 { margin-bottom:30px; color:#2575fc; }
+    .login-container input[type="email"], .login-container input[type="password"] { width:100%; padding:15px 20px; margin:10px 0; border:1px solid #ddd; border-radius:50px; outline:none; font-size:1rem; transition:0.3s; }
+    .login-container input:focus { border-color:#2575fc; box-shadow:0 0 5px rgba(37,117,252,0.5); }
+    .login-container button { width:100%; padding:15px; border:none; border-radius:50px; background:#2575fc; color:#fff; font-size:1.1rem; cursor:pointer; margin-top:20px; transition:0.3s; font-weight:600; }
+    .login-container button:hover { background:#1452b0; transform:scale(1.05); }
+    .login-container .links { margin-top:20px; font-size:0.9rem; }
+    .login-container .links a { margin:0 5px; transition:0.3s; }
+    .login-container .links a:hover { color:#ffdd59; }
+    @media (max-width:480px){ .login-container { padding:30px 20px; } }
+</style>
+</head>
+<body>
+
+<div class="login-container">
+    <h2>Login</h2>
+    <form id="loginForm">
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
+    <div class="links">
+        <span>Don't have an account? <a href="register.html">Register</a></span>
+    </div>
+</div>
+
+<script>
+    document.getElementById('loginForm').addEventListener('submit', function(e){
+        e.preventDefault();
+
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        if(email === "" || password === ""){
+            alert("Please fill in all fields!");
+            return;
+        }
+
+        // Check if user is registered
+        let users = JSON.parse(localStorage.getItem('users')) || [];
+        let user = users.find(u => u.email === email);
+
+        if(!user){
+            alert("You are not registered. Please register first!");
+            window.location.href = "register.html";
+            return;
+        }
+
+        if(user.password !== password){
+            alert("Incorrect password!");
+            return;
+        }
+
+        // Redirect based on role
+        if(user.role === "student"){
+            alert("Login successful! Redirecting to Student Dashboard...");
+            window.location.href = "dashboard_student.html";
+        } else if(user.role === "teacher"){
+            alert("Login successful! Redirecting to Teacher Dashboard...");
+            window.location.href = "dashboard_teacher.html";
+        }
+    });
+</script>
+
+</body>
+</html>

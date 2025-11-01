@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Progress - Teacher Dashboard</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+body { background:#f5f8ff; color:#333; }
+nav {
+    display:flex; justify-content:space-between; align-items:center;
+    padding:20px 50px; background:linear-gradient(90deg,#6a11cb,#2575fc); color:#fff;
+    position:sticky; top:0; z-index:1000;
+}
+nav .logo { font-size:2rem; font-weight:700; letter-spacing:1px; }
+nav ul { display:flex; gap:25px; }
+nav ul li a { color:#fff; font-weight:500; text-decoration:none; transition:0.3s; }
+nav ul li a:hover { color:#ffdd59; }
+
+.container { max-width:900px; margin:50px auto; padding:20px; background:#fff; border-radius:15px; box-shadow:0 5px 20px rgba(0,0,0,0.1); }
+h1 { color:#2575fc; text-align:center; margin-bottom:30px; }
+table { width:100%; border-collapse:collapse; }
+th, td { padding:12px 15px; border:1px solid #ddd; text-align:center; }
+th { background:#6a11cb; color:#fff; border-radius:5px; }
+tr:nth-child(even) { background:#f2f2f2; }
+.progress-bar { background:#dcdcdc; border-radius:10px; overflow:hidden; height:20px; width:100%; }
+.progress-fill { height:100%; background:#2575fc; text-align:center; color:#fff; line-height:20px; font-size:0.85rem; }
+
+footer { text-align:center; padding:30px 20px; background:#2575fc; color:#fff; margin-top:50px; }
+
+/* Responsive */
+@media (max-width:768px){
+    nav { flex-direction:column; gap:10px; }
+    table { font-size:0.85rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav>
+    <div class="logo">E-Learn</div>
+    <ul>
+        <li><a href="dashboard_teacher.html">Dashboard</a></li>
+        <li><a href="dashboard_teacher.html#coursesContainer">My Courses</a></li>
+        <li><a href="dashboard_teacher.html#addCourse">Add Course</a></li>
+        <li><a href="#" id="logout">Logout</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <h1>Student Progress</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Course</th>
+                <th>Progress</th>
+            </tr>
+        </thead>
+        <tbody id="progressTable">
+            <!-- Dynamic rows -->
+        </tbody>
+    </table>
+</div>
+
+<footer>
+    &copy; 2025 E-Learning Platform. All Rights Reserved.
+</footer>
+
+<script>
+// Demo data
+let progressData = [
+    { student:"Alice", course:"HTML & CSS Basics", progress:70 },
+    { student:"Bob", course:"JavaScript Fundamentals", progress:45 },
+    { student:"Charlie", course:"HTML & CSS Basics", progress:90 },
+    { student:"David", course:"JavaScript Fundamentals", progress:60 },
+];
+
+const tableBody = document.getElementById('progressTable');
+progressData.forEach(item => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+        <td>${item.student}</td>
+        <td>${item.course}</td>
+        <td>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width:${item.progress}%;">${item.progress}%</div>
+            </div>
+        </td>
+    `;
+    tableBody.appendChild(tr);
+});
+
+// Logout
+document.getElementById('logout').addEventListener('click', function(){
+    alert("Logged out successfully!");
+    window.location.href = "login.html";
+});
+</script>
+
+</body>
+</html>

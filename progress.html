@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Progress - E-Learning Platform</title>
+<style>
+body { font-family:'Poppins', sans-serif; background:#f5f8ff; color:#333; margin:0; }
+nav { display:flex; justify-content:space-between; align-items:center; padding:20px 50px; background:linear-gradient(90deg,#6a11cb,#2575fc); color:#fff; }
+nav .logo { font-size:2rem; font-weight:700; }
+nav ul { display:flex; gap:20px; }
+nav ul li a { color:#fff; font-weight:500; text-decoration:none; }
+nav ul li a:hover { color:#ffdd59; }
+.container { padding:50px 20px; max-width:900px; margin:auto; }
+h1 { color:#2575fc; margin-bottom:20px; }
+.progress-card { background:#fff; padding:20px; margin-bottom:20px; border-radius:15px; box-shadow:0 5px 20px rgba(0,0,0,0.1); }
+.progress-bar { background:#ddd; height:15px; border-radius:10px; overflow:hidden; margin-top:10px; }
+.progress { height:100%; background:#6a11cb; width:0%; transition:width 1s; }
+footer { text-align:center; padding:30px; background:#2575fc; color:#fff; margin-top:50px; }
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav>
+    <div class="logo">E-Learn</div>
+    <ul>
+        <li><a href="dashboard_student.html">Dashboard</a></li>
+        <li><a href="#">Progress</a></li>
+        <li><a href="announcements.html">Announcements</a></li>
+        <li><a href="support.html">Support</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <h1>My Progress</h1>
+
+    <div class="progress-card">
+        <h3>HTML & CSS Basics</h3>
+        <div class="progress-bar">
+            <div class="progress" style="width:40%;"></div>
+        </div>
+    </div>
+
+    <div class="progress-card">
+        <h3>JavaScript Fundamentals</h3>
+        <div class="progress-bar">
+            <div class="progress" style="width:25%;"></div>
+        </div>
+    </div>
+
+    <div class="progress-card">
+        <h3>React for Beginners</h3>
+        <div class="progress-bar">
+            <div class="progress" style="width:10%;"></div>
+        </div>
+    </div>
+
+    <div class="progress-card">
+        <h3>Python Programming</h3>
+        <div class="progress-bar">
+            <div class="progress" style="width:70%;"></div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    &copy; 2025 E-Learning Platform. All Rights Reserved.
+</footer>
+
+</body>
+</html>

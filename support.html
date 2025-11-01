@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support - E-Learning Platform</title>
+<style>
+body { 
+    font-family:'Poppins', sans-serif; 
+    background:#f5f8ff; 
+    color:#333; 
+    margin:0; 
+}
+
+/* Navbar */
+nav { 
+    display:flex; 
+    justify-content:space-between; 
+    align-items:center; 
+    padding:20px 50px; 
+    background:linear-gradient(90deg,#6a11cb,#2575fc); 
+    color:#fff; 
+}
+nav .logo { font-size:2rem; font-weight:700; }
+nav ul { display:flex; gap:20px; }
+nav ul li a { color:#fff; font-weight:500; text-decoration:none; }
+nav ul li a:hover { color:#ffdd59; }
+
+/* Container */
+.container {
+    padding:50px 20px;
+    max-width:600px;
+    margin:50px auto; /* Center horizontally & spacing top/bottom */
+    background:#fff;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+/* Heading */
+h1 { 
+    color:#2575fc; 
+    margin-bottom:30px; 
+    text-align:center; 
+}
+
+/* Form */
+form { 
+    display:flex; 
+    flex-direction:column; 
+    gap:15px; 
+}
+input, textarea { 
+    padding:12px; 
+    border-radius:10px; 
+    border:1px solid #ccc; 
+    font-size:1rem; 
+    width:100%; 
+}
+button { 
+    padding:12px; 
+    border:none; 
+    border-radius:50px; 
+    background:#2575fc; 
+    color:#fff; 
+    font-weight:600; 
+    cursor:pointer; 
+    transition:0.3s; 
+}
+button:hover { 
+    background:#1452b0; 
+    transform:scale(1.05); 
+}
+
+/* Footer */
+footer { 
+    text-align:center; 
+    padding:30px; 
+    background:#2575fc; 
+    color:#fff; 
+    margin-top:50px; 
+}
+
+/* Responsive */
+@media (max-width:768px){
+    .container { padding:30px 15px; margin:30px 10px; }
+    nav { flex-direction:column; gap:10px; }
+    nav ul { flex-direction:column; gap:10px; align-items:center; }
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav>
+    <div class="logo">E-Learn</div>
+    <ul>
+        <li><a href="dashboard_student.html">Dashboard</a></li>
+        <li><a href="progress.html">Progress</a></li>
+        <li><a href="announcements.html">Announcements</a></li>
+        <li><a href="#">Support</a></li>
+    </ul>
+</nav>
+
+<!-- Support Form -->
+<div class="container">
+    <h1>Contact Support</h1>
+    <form onsubmit="alert('Your message has been sent!'); return false;">
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <textarea rows="5" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+    </form>
+</div>
+
+<!-- Footer -->
+<footer>
+    &copy; 2025 E-Learning Platform. All Rights Reserved.
+</footer>
+
+</body>
+</html>

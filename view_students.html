@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>View Students - Teacher Dashboard</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+body { background:#f5f8ff; color:#333; }
+
+/* Navbar */
+nav {
+    display:flex; justify-content:space-between; align-items:center;
+    padding:20px 50px; background:linear-gradient(90deg,#6a11cb,#2575fc); color:#fff;
+    position:sticky; top:0; z-index:1000;
+}
+nav .logo { font-size:2rem; font-weight:700; letter-spacing:1px; }
+nav ul { display:flex; gap:25px; }
+nav ul li a { color:#fff; font-weight:500; text-decoration:none; transition:0.3s; }
+nav ul li a:hover { color:#ffdd59; }
+
+/* Container */
+.container { max-width:900px; margin:50px auto; padding:20px; background:#fff; border-radius:15px; box-shadow:0 5px 20px rgba(0,0,0,0.1); }
+h1 { color:#2575fc; text-align:center; margin-bottom:30px; }
+table { width:100%; border-collapse:collapse; }
+th, td { padding:12px 15px; border:1px solid #ddd; text-align:center; }
+th { background:#6a11cb; color:#fff; border-radius:5px; }
+tr:nth-child(even) { background:#f2f2f2; }
+
+/* Footer */
+footer { text-align:center; padding:30px 20px; background:#2575fc; color:#fff; margin-top:50px; }
+
+/* Responsive */
+@media (max-width:768px){
+    nav { flex-direction:column; gap:10px; }
+    table { font-size:0.85rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav>
+    <div class="logo">E-Learn</div>
+    <ul>
+        <li><a href="dashboard_teacher.html">Dashboard</a></li>
+        <li><a href="dashboard_teacher.html#coursesContainer">My Courses</a></li>
+        <li><a href="dashboard_teacher.html#addCourse">Add Course</a></li>
+        <li><a href="#" id="logout">Logout</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <h1 id="courseTitleHeading">Course Students</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Email</th>
+                <th>Progress</th>
+            </tr>
+        </thead>
+        <tbody id="studentsTable">
+            <!-- Dynamic rows -->
+        </tbody>
+    </table>
+</div>
+
+<footer>
+    &copy; 2025 E-Learning Platform. All Rights Reserved.
+</footer>
+
+<script>
+// Helper to get query param
+function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+
+// Demo student data
+let students = [
+    { name:"Alice", email:"alice@example.com", courses:["HTML & CSS Basics","JavaScript Fundamentals"], progress:[70,50] },
+    { name:"Bob", email:"bob@example.com", courses:["HTML & CSS Basics"], progress:[45] },
+    { name:"Charlie", email:"charlie@example.com", courses:["JavaScript Fundamentals"], progress:[60] },
+    { name:"David", email:"david@example.com", courses:["HTML & CSS Basics"], progress:[90] },
+];
+
+// Get course from query
+let courseName = getQueryParam('course');
+document.getElementById('courseTitleHeading').innerText = `Students Enrolled in: ${courseName}`;
+
+// Filter students enrolled in this course
+const tableBody = document.getElementById('studentsTable');
+students.forEach(student => {
+    student.courses.forEach((c,i) => {
+        if(c === courseName){
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${student.name}</td>
+                <td>${student.email}</td>
+                <td>${student.progress[i]}%</td>
+            `;
+            tableBody.appendChild(tr);
+        }
+    });
+});
+
+// Logout
+document.getElementById('logout').addEventListener('click', function(){
+    alert("Logged out successfully!");
+    window.location.href = "login.html";
+});
+</script>
+
+</body>
+</html>
